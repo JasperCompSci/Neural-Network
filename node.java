@@ -2,9 +2,9 @@ import java.util.*;
 
 class Node {
 
-  float[] weights;
+  double[] weights;
   public Node(int n) {
-    weights = new float[n]; // n is number of nodes
+    weights = new double[n]; // n is number of nodes
     Random rand = new Random();
     for (int i = 0; i < weights.length; i++)
     {
@@ -12,14 +12,16 @@ class Node {
     }
   }
 
-  public void function(float[] inputs) {
-    float total = 0;
-    for (int i = 0; i < inputs.length; i++ )
-    {
-      int toAdd = inputs[i]*weights[i];
-      total += toAdd;
-    }
+  public double function(double[] inputs) {
+    // TODO
   }
 
-  
+  public void learn(double[] inputs, double correct) {
+    double attempt = function(inputs);
+    double error = correct - attempt;
+    for (int i = 0; i < inputs.length; i++ )
+    {
+      weights[i] += error*inputs[i];
+    }
+  }
 }
