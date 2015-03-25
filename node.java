@@ -12,31 +12,15 @@ class Node {
     }
   }
 
-  public void function(double[] inputs) { // change from void to double
+  public double function(double[] inputs) { // change from void to double
     double activation = 0;
     for (int i = 0; i < inputs.length; i++) 
     {
-    	activation += inputs[i]*weight[i];
+    	activation += inputs[i]*weights[i];
     }
+    return 1/(1+Math.exp(-activation)); // sigma function
   }
 
-  /*
-   * To implement:
-   * The training proceeds in five stages. 
-   * First, we create the network with random weights and random biases. 
-   * Second, we set the activation of the two input nodes from the columns 'a' and 'b' in the table, 
-   * and run the network forward. 
-   * Third, we compare the output produced by the network 
-   * to the desired output (in the third column of the truth table), 
-   * and calculate the difference between the actual output and the desired output. 
-   * This difference is the error signal. 
-   * Fourth, we change the weights of the connections that connect to the output node,
-   *  and the bias of the output node. Fifth, we pass the error back to the hidden layer, 
-   *  and change the biases and weights of those connections. 
-   *  Then the cycle repeats with new inputs and new outputs. 
-   *  The network trains until the average error (calculated over all four rows in the truth table) 
-   *  approaches zero.
-   */
   
   
   public void learn(double[] inputs, double correct) {
@@ -44,7 +28,7 @@ class Node {
     double error = correct - attempt;
     for (int i = 0; i < inputs.length; i++ )
     {
-      weights[i] += error*inputs[i];
+      weights[i] += .01*error*inputs[i]*(1-attempt)*inputs[i];
     }
   }
 }
